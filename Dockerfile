@@ -1,5 +1,6 @@
 FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
+ENV JAVA_OPTS=""
 ARG JAR_FILE
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-Dspring.profiles.active=mysql" ,"-jar","/app.jar"]
+RUN echo "run with JAVA_OPTS=$JAVA_OPTS"
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app.jar"]
